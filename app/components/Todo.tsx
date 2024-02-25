@@ -29,8 +29,10 @@ const Todo = ({ todo }: TodoProps) => {
       );
       if (response.ok) {
         const editedTodo = await response.json();
-        mutate([...todos, editedTodo]);
-        setEditedTitle("");
+        const updatedTodos = todos.map((todo: TodoType) =>
+          todo.id === editedTodo.id ? editedTodo : todo
+        );
+        mutate(updatedTodos);
       }
     }
   };
