@@ -22,10 +22,13 @@ export default function Home() {
         isCompleted: false,
       }),
     });
-
     if (response.ok) {
       const newTodo = await response.json();
-      mutate([...todos, newTodo]);
+      if (todos) {
+        mutate([...todos, newTodo]);
+      } else {
+        mutate([newTodo]);
+      }
       if (inputRef.current) {
         inputRef.current.value = "";
       }
